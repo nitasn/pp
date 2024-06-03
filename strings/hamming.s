@@ -47,17 +47,19 @@ hamming_dist:
 
   push %rax
   push %rcx
-
   mov %r10d, %ecx
   mov $1, %rax
   shl %cl, %rax
   dec %rax
   mov %eax, %r11d
-
   pop %rcx
   pop %rax
+  # now %r11d is a mask of %r10d lsb bits (e.g. if %r10d == 5, then 0b11111)
 
   andl %r11d, %edx
+  # now %edx holds comparison mask, without trailing junk!!
+
+  popcnt %eax, %eax
 
   pushf
 
