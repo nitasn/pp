@@ -70,9 +70,9 @@ hamming_dist:
   je .hamming_dist_loop
 
 
-  mov %r9d, %r12d
-  cmpl %r9d, %r10d
-  cmovg %r8d, %r12d
+  mov %r8d, %r12d
+  cmpl %r8d, %r9d
+  cmovl %r9d, %r12d
   # now %r12d holds the maximum of the two chunks' lengths
 
   push %r12  # callee-saved
