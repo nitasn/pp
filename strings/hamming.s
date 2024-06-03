@@ -20,8 +20,8 @@ hamming_dist:
   xor %rax, %rax  # result (number of mismatches)
 
 .hamming_dist_loop:
-  movdqu %rdi, %xmm1  # 16 chars from str1
-  movdqu %rsi, %xmm2  # 16 chars from str2
+  movdqu (%rdi), %xmm1  # 16 chars from str1
+  movdqu (%rsi), %xmm2  # 16 chars from str2
 
   # 00 10 10 00 Unsigned Chars, Equal Each, Masked (+), Bit Mask
   pcmpistrm $0b00101000, %xmm1, %xmm2
@@ -74,12 +74,14 @@ hamming_dist:
 .hamming_dist_ending_first_is_smaller:
   mov %rsi, %rdi
   sub %r8d, %r9d
-  add %r9d, %rdi
+  mov %r9d, %r9d # zero extend
+  add %r9, %rdi
   jmp .hamming_dist_ending
 
 .hamming_dist_ending_second_is_smaller:
   sub %r9d, %r8d
-  add %r8d, %rdi
+  mov %r8d, %r8d # zero extend
+  add %r8, %rdi
 
 .hamming_dist_ending:
   push %rax
