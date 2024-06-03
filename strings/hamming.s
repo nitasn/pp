@@ -19,7 +19,7 @@ hamming_dist:
   movdqu (%rdi, %rax), %xmm1  # 16 chars from str1
   movdqu (%rsi, %rax), %xmm2  # 16 chars from str2
 
-  pcmpistrm $0b00111000, %xmm1, %xmm2
+  pcmpistrm $0b00101100, %xmm1, %xmm2
   pushf
 
   popcnt %rcx, %rcx # count 1's
