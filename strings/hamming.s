@@ -71,8 +71,8 @@ hamming_dist:
 
 
   mov %r9d, %r12d
-  cmpl %r8d, %r9d
-  cmovg %r9d, %r12d
+  cmpl %r9d, %r10d
+  cmovg %r8d, %r12d
   # now %r12d holds the maximum of the two chunks' lengths
 
   push %r12  # callee-saved
