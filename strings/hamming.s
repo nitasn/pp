@@ -22,7 +22,7 @@ hamming_dist:
   # 00 10 10 00 Unsigned Chars, Equal Each, Masked (+), Bit Mask
   pcmpistrm $0b00101000, %xmm1, %xmm2
 
-  # now %xmm0 holds
+  movd %xmm0, %eax
   
   pushf
 
