@@ -1,3 +1,5 @@
+.intel_syntax noprefix
+
 .section .data
 
 EOS_mask:
