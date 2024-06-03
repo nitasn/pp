@@ -12,21 +12,16 @@ hamming_dist:
   push %rbp
   mov %rsp, %rbp
 
-  push %r12  # callee-saved
-
   push %rsi
   lea EOS_mask, %rsi
   movdqu (%rsi), %xmm3
   pop %rsi
 
   xor %rax, %rax  # result (number of mismatches)
-  xor %rcx, %rcx  # loop index (grows by multiples of 16)
 
 .hamming_dist_loop:
-  push %rcx
-
-  movdqu (%rdi, %rcx), %xmm1  # 16 chars from str1
-  movdqu (%rsi, %rcx), %xmm2  # 16 chars from str2
+  movdqu %rdi, %xmm1  # 16 chars from str1
+  movdqu %rsi, %xmm2  # 16 chars from str2
 
   # 00 10 10 00 Unsigned Chars, Equal Each, Masked (+), Bit Mask
   pcmpistrm $0b00101000, %xmm1, %xmm2
@@ -63,23 +58,40 @@ hamming_dist:
 
   add %rdx, %rax  # add the result (number of mismatches) to the count
 
+  cmp $16, %r10d  # compare smaller chunk length's with 16
+  jb .hamming_dist_one_string_ended
+
+  add $16, %rdi  # next 16 chars from str2
+  add $16, %rsi  # next 16 chars from str1
+
+  jmp .hamming_dist_loop
+
+
+.hamming_dist_one_string_ended:
+  cmp %r9d, %r10d
+  je .hamming_dist_ending_second_is_smaller
+
+.hamming_dist_ending_first_is_smaller:
+  mov %rsi, %rdi
+  sub %r8d, %r9d
+  add %r9d, %rdi
+  jmp .hamming_dist_ending
+
+.hamming_dist_ending_second_is_smaller:
+  sub %r9d, %r8d
+  add %r8d, %rdi
+
+.hamming_dist_ending:
+  push %rax
+  call my_str_len
   pop %rcx
-  add $16, %rcx  # increment the loop
+  add %rcx, %rax
 
-  cmp $16, %r10d  # if "smaller" chunk length is 16, both have more chars.
-  je .hamming_dist_loop
-
-
-  mov %r8d, %r12d
-  cmpl %r8d, %r9d
-  cmovg %r9d, %r12d
-  # now %r12d holds the maximum of the two chunks' lengths
-
-  push %r12  # callee-saved
   pop %rbp
   ret
 
-tirgul_str_len:
+
+my_str_len:
   push %rbp
   mov %rsp, %rbp
 
