@@ -13,18 +13,18 @@ hamming_dist:
   mov %rsp, %rbp
 
   push %rsi
-
   lea EOS_mask, %rsi
   movdqu (%rsi), %xmm3
-
   pop %rsi
 
-  xor %rax, %rax
-  xor %rcx, %rcx
+  xor %rax, %rax  # result (number of mismatches)
+  xor %rcx, %rcx  # loop index (grows by multiples of 16)
 
 .hamming_dist_loop:
-  movdqu (%rdi, %rax), %xmm1  # 16 chars from str1
-  movdqu (%rsi, %rax), %xmm2  # 16 chars from str2
+  push %rcx
+
+  movdqu (%rdi, %rcx), %xmm1  # 16 chars from str1
+  movdqu (%rsi, %rcx), %xmm2  # 16 chars from str2
 
   # 00 10 10 00 Unsigned Chars, Equal Each, Masked (+), Bit Mask
   pcmpistrm $0b00101000, %xmm1, %xmm2
@@ -60,6 +60,9 @@ hamming_dist:
   mov %edx, %edx  # zero-extend %edx to %rdx
 
   add %rdx, %rax  # add the result (number of mismatches) to the count
+
+  pop %rcx
+  add $16, %rcx  # increment the loop
 
   cmp $16, %r10d  # if "smaller" chunk length is 16, both have more chars...
   je .hamming_dist_loop
