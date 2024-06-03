@@ -22,8 +22,9 @@ hamming_dist:
   pcmpistrm $0b00101100, %xmm1, %xmm2
   pushf
 
-  popcnt %rcx, %rcx # count 1's
-  add %rcx, %rax
+  movmskps %xmm0, %edx  # move the mask bits to a general-purpose register
+  popcnt %edx, %edx # count 1's
+  add %edx, %rax
 
   popf
   jnz .hamming_dist_loop
