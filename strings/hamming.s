@@ -12,6 +12,8 @@ hamming_dist:
   push %rbp
   mov %rsp, %rbp
 
+  push %r12  # callee-saved
+
   push %rsi
   lea EOS_mask, %rsi
   movdqu (%rsi), %xmm3
@@ -64,9 +66,16 @@ hamming_dist:
   pop %rcx
   add $16, %rcx  # increment the loop
 
-  cmp $16, %r10d  # if "smaller" chunk length is 16, both have more chars...
+  cmp $16, %r10d  # if "smaller" chunk length is 16, both have more chars.
   je .hamming_dist_loop
 
+
+  mov %r9d, %r12d
+  cmpl %r8d, %r9d
+  cmovg %r9d, %r12d
+  # now %r12d holds the maximum of the two chunks' lengths
+
+  push %r12  # callee-saved
   pop %rbp
   ret
 
