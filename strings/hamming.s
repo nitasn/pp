@@ -59,7 +59,7 @@ hamming_dist:
   popcnt %edx, %edx
   # now %edx holds the number of chars matching in this iteration
 
-  mov %edx, %eax  # zero-extend %edx to %rdx
+  mov %edx, %edx  # zero-extend %edx to %rdx
 
   add %rdx, %rax  # add to number of matching chars to count
 
