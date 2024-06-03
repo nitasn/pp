@@ -5,6 +5,10 @@
 #define arraySize(x) (sizeof(x) / sizeof(x[0]))
 
 int main(void) {
+    hamming_dist("0123456789012345678901234567890", "0123456789012345678901234567890");
+}
+
+int notmain(void) {
     /* Init menu-related data */
     int (*functions[])(char *, char *) = {hamming_dist, b64_distance};
     int numFuncs = arraySize(functions);
