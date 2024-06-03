@@ -15,6 +15,9 @@ hamming_dist:
   xor %rax, %rax
   xor %rcx, %rcx
 
+  lea EOS_mask, %rsi
+  movdqu (%rsi), %xmm2
+
 .hamming_dist_loop:
   movdqu (%rdi, %rax), %xmm1  # 16 chars from str1
   movdqu (%rsi, %rax), %xmm2  # 16 chars from str2
@@ -22,7 +25,11 @@ hamming_dist:
   # 00 10 10 00 Unsigned Chars, Equal Each, Masked (+), Bit Mask
   pcmpistrm $0b00101000, %xmm1, %xmm2
 
-  movd %xmm0, %eax
+  movd %xmm0, %edx  
+  # now %edx holds comparison mask, plus trailing junk
+
+  pcmpistri $0b00010100, %xmm2, %xmm1
+  # now %ecx holds first chunk's length (between 0 and 16)
   
   pushf
 
