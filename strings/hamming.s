@@ -10,7 +10,6 @@ EOS_mask:
 
 hamming_dist:
   call tirgul_str_len
-  add $1, %rax
   ret
 
 tirgul_str_len:
@@ -18,17 +17,18 @@ tirgul_str_len:
   mov %rsp, %rbp
 
   xor %rax, %rax
-  xor %rcx, %rcx
 
   lea EOS_mask, %rsi
   movdqu (%rsi), %xmm1
 
 .loop:
-  add %rcx, %rax
   pcmpistri $0b00010100, (%rdi,%rax), %xmm1
-  jnz .loop
+  pushf
 
   add %rcx, %rax
+
+  popf
+  jnz .loop
 
   pop %rbp
   ret

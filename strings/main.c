@@ -4,15 +4,15 @@
 
 #define arraySize(x) (sizeof(x) / sizeof(x[0]))
 
+// int main(void) {
+
+//     char str1[] = "0000000000000000";
+//     char str2[] = "0000000000000000";
+//     int res = hamming_dist(str1, str2);
+//     printf("Result: %d\n", res);
+// }
+
 int main(void) {
-
-    char str1[] = "0000000000000000";
-    char str2[] = "0000000000000000";
-    int res = hamming_dist(str1, str2);
-    printf("Result: %d\n", res);
-}
-
-int notmain(void) {
     /* Init menu-related data */
     int (*functions[])(char *, char *) = {hamming_dist, b64_distance};
     int numFuncs = arraySize(functions);
