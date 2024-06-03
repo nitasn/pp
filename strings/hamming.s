@@ -32,11 +32,11 @@ hamming_dist:
   movd %xmm0, %edx  
   # now %edx holds comparison mask, plus trailing junk after str's length
 
-  pcmpistri $0b00010100, %xmm1, %xmm3
+  pcmpistrm $0b00010100, %xmm1, %xmm3
   mov %ecx, %r8d
   # now %r8d holds first chunk's length (between 0 and 16)
 
-  pcmpistri $0b00010100, %xmm2, %xmm3
+  pcmpistrm $0b00010100, %xmm2, %xmm3
   mov %ecx, %r9d
   # now %r9d holds second chunk's length (between 0 and 16)
   
