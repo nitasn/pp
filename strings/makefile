@@ -2,7 +2,6 @@ CC = gcc
 AS = as
 CFLAGS = -Wall -O0 -g -m64
 LDFLAGS = -no-pie -lm -g
-ASFLAGS = --64 --defsym intel_syntax=1 --defsym prefix_byte=0 -masm=intel
 
 all: main
 
@@ -16,7 +15,7 @@ b64.o: b64.c
 	$(CC) $(CFLAGS) -c $<
 
 hamming.o: hamming.s
-	$(AS) $(ASFLAGS) -o $@ $<
+	$(AS) --64 -o $@ $<
 
 clean:
 	rm -f *.o main
