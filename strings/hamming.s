@@ -59,7 +59,7 @@ hamming_dist:
   add %rdx, %rax  # add the result (number of mismatches) to the count
 
   cmp $16, %r10d  # compare smaller chunk length's with 16
-  jb .hamming_dist_one_string_ended
+  jne .hamming_dist_one_string_ended
 
   add $16, %rdi  # next 16 chars from str2
   add $16, %rsi  # next 16 chars from str1
