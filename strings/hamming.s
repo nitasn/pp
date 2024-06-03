@@ -48,7 +48,7 @@ hamming_dist:
   movl $1, %r8d
   movl %r10d, %r9d
   decl %r9d
-  shll %r9d, %r8d
+  shl %r9d, %r8d
   subl $1, %r8d
 
   andl %r8d, %edx
