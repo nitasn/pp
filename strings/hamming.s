@@ -40,9 +40,10 @@ hamming_dist:
   mov %ecx, %r9d
   # now %r9d holds second chunk's length (between 0 and 16)
 
+  mov %r8d, %r10d
   cmpl %r9d, %r8d
-  cmovg %r9d, %r8d
-  # now %r8d holds the minimum of the two chunks' lengths
+  cmovg %r9d, %r10d
+  # now %r10d holds the minimum of the two chunks' lengths
 
   pushf
 
