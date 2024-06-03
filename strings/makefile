@@ -1,8 +1,8 @@
 CC = gcc
-NASM = nasm
+AS = as
 CFLAGS = -Wall -O0 -g -m64
 LDFLAGS = -no-pie -lm -g
-NASMFLAGS = -f elf64 -g -F dwarf
+ASFLAGS = --64 --defsym intel_syntax=1 --defsym prefix_byte=0 -masm=intel
 
 all: main
 
@@ -16,7 +16,7 @@ b64.o: b64.c
 	$(CC) $(CFLAGS) -c $<
 
 hamming.o: hamming.s
-	$(NASM) $(NASMFLAGS) -o $@ $<
+	$(AS) $(ASFLAGS) -o $@ $<
 
 clean:
 	rm -f *.o main
