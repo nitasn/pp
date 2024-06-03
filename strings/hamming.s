@@ -46,15 +46,15 @@ hamming_dist:
   # now %r10d holds the minimum of the two chunks' lengths
 
   push %rcx
-  movl $1, %r11
+  movl $1, %r11d
   movl %r10d, %r12d
   decl %r12d
   movb %r12b, %cl
-  shl %cl, %r11
-  subl $1, %r11
+  shl %cl, %r11d
+  subl $1, %r11d
   pop %rcx
 
-  andl %r11, %edx
+  andl %r11d, %edx
 
   pushf
 
