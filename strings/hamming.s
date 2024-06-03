@@ -32,14 +32,18 @@ hamming_dist:
   movd %xmm0, %edx  
   # now %edx holds comparison mask, plus trailing junk after str's length
 
-  pcmpistrm $0b00010100, %xmm1, %xmm3
+  pcmpistri $0b00010100, %xmm1, %xmm3
   mov %ecx, %r8d
   # now %r8d holds first chunk's length (between 0 and 16)
 
-  pcmpistrm $0b00010100, %xmm2, %xmm3
+  pcmpistri $0b00010100, %xmm2, %xmm3
   mov %ecx, %r9d
   # now %r9d holds second chunk's length (between 0 and 16)
-  
+
+  cmpl %r9d, %r8d
+  cmovl %r9d, %r8d
+  # now %r8d holds the minimum of the two chunks' lengths
+
   pushf
 
   movmskps %xmm0, %ecx  # move the mask bits to a general-purpose register
