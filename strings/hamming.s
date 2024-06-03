@@ -29,7 +29,7 @@ hamming_dist:
   # 00 10 10 00 Unsigned Chars, Equal Each, Masked (+), Bit Mask
   pcmpistrm $0b00101000, %xmm1, %xmm2
 
-  movd %xmm0, %edx  
+  movd %xmm0, %edx
   # now %edx holds comparison mask, plus trailing junk after str's length
 
   pcmpistri $0b00010100, %xmm1, %xmm3
@@ -44,6 +44,14 @@ hamming_dist:
   cmpl %r9d, %r8d
   cmovg %r9d, %r10d
   # now %r10d holds the minimum of the two chunks' lengths
+
+  movl $1, %r8d
+  movl %r10d, %r9d
+  decl %r9d
+  shll %r9d, %r8d
+  subl $1, %r8d
+
+  andl %r8d, %edx
 
   pushf
 
