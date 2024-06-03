@@ -50,15 +50,16 @@ hamming_dist:
   dec %r11
   # now %r11 is a mask of %r10d lsb bits (e.g. if %r10d == 5, then 0b11111)
 
+  not %edx
   andl %r11d, %edx
   # now %edx holds comparison mask, without trailing junk!!
 
   popcnt %edx, %edx
-  # now %edx holds the number of chars matching in this iteration
-
+  # now %edx holds the number of mismatches in this iteration
+  
   mov %edx, %edx  # zero-extend %edx to %rdx
 
-  add %rdx, %rax  # add the result (number of matching chars) to the count
+  add %rdx, %rax  # add the result (number of mismatches) to the count
 
   cmp $16, %r10d  # if "smaller" chunk length is 16, both have more chars...
   je .hamming_dist_loop
