@@ -6,8 +6,8 @@
 
 int main(void) {
 
-    char str1[] = "0123456789012345678901234567890";
-    char str2[] = "0123456789012345678901234567890";
+    char str1[] = "hello";
+    char str2[] = "hello";
     int res = hamming_dist(str1, str2);
     printf("Result: %d\n", res);
 }
