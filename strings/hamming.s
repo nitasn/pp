@@ -9,6 +9,11 @@ EOS_mask:
 .globl hamming_dist
 
 hamming_dist:
+  call tirgul_str_len
+  add $1, %rax
+  ret
+
+tirgul_str_len:
   push %rbp
   mov %rsp, %rbp
 
