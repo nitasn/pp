@@ -19,11 +19,11 @@ hamming_dist:
   movdqu (%rsi), %xmm1
 
 .loop:
-  add %rax, %rcx
+  add %rcx, %rax
   pcmpistri $0b00010100, (%rdi,%rax), %xmm1
   jnz .loop
 
-  add %rax, %rcx
+  add %rcx, %rax
 
   pop %rbp
   ret
