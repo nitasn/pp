@@ -41,9 +41,9 @@ hamming_dist:
   # now %r9d holds second chunk's length (between 0 and 16)
 
   cmpl %r9d, %r8d
-  cmovg %r9d, %r10d
-  cmovle %r8d, %r9d
-  # now %r10d holds the minimum of the chunks' lengths, and %r9d the maximum
+  cmovle %r9d, %r10d
+  cmovlg %r8d, %r9d
+  # now %r9d holds the minimum of the chunks' lengths, and %r10d the maximum
 
   pushf
 
