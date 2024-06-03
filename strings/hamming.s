@@ -19,7 +19,9 @@ hamming_dist:
   movdqu (%rdi, %rax), %xmm1  # 16 chars from str1
   movdqu (%rsi, %rax), %xmm2  # 16 chars from str2
 
-  pcmpistrm $0b 00 10 01 00, %xmm1, %xmm2
+  # 00 10 01 00 Unsigned Chars, Equal Each, Negative Polarity
+  pcmpistrm $0b00100100, %xmm1, %xmm2
+  
   pushf
 
   movmskps %xmm0, %ecx  # move the mask bits to a general-purpose register
