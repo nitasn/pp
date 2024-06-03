@@ -29,11 +29,11 @@ hamming_dist:
   movq %rsi, %xmm1
 
 .loop:
-  add %rcx, %rax
-  pcmpistri $0x0100, (%rdi,%rax), %xmm1
+  movdqu (%rdi, %rax), %xmm0  # Load data from string into xmm0
+  pcmpistri $0x18, %xmm1, %xmm0  # Control byte in immediate, compare xmm1 with xmm0
   jnz .loop
-
   add %rcx, %rax
+
 
   pop %rbp
   ret
