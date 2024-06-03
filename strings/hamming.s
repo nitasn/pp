@@ -23,12 +23,14 @@ hamming_dist:
   xor %rcx, %rcx
 
 .hamming_dist_loop:
+  mov $0xFFFFFFFFFFFFFFFF, %rax
+  mov %edx, %eax
+
   movdqu (%rdi, %rax), %xmm1  # 16 chars from str1
   movdqu (%rsi, %rax), %xmm2  # 16 chars from str2
 
   # 00 10 10 00 Unsigned Chars, Equal Each, Masked (+), Bit Mask
   pcmpistrm $0b00101000, %xmm1, %xmm2
-
   movd %xmm0, %edx
   # now %edx holds comparison mask, plus trailing junk after str's length
 
@@ -60,6 +62,9 @@ hamming_dist:
   # now %edx holds comparison mask, without trailing junk!!
 
   popcnt %edx, %edx
+  # now %edx holds the number of chars matching in this iteration
+
+  # and 
 
   pushf
 
