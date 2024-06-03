@@ -12,11 +12,11 @@ hamming_dist:
   push %rbp
   mov %rsp, %rbp
 
-  ;Zero our counting registers
+  # Zero our counting registers
   xor %rax, %rax
   xor %rcx, %rcx
 
-  ;Load mask into xmm1
+  # Load mask into xmm1
   lea EOS_mask, %rsi
   movdqu (%rsi), %xmm1
 
