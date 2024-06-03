@@ -33,8 +33,8 @@ hamming_dist:
   # now %edx holds comparison mask, plus trailing junk after str's length
 
   pcmpistri $0b00010100, %xmm1, %xmm2
-  mov %ecx, %rd8
-  # now %rd8 holds first chunk's length (between 0 and 16)
+  mov %ecx, %r8d
+  # now %r8d holds first chunk's length (between 0 and 16)
   
   pushf
 
