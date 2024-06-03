@@ -15,7 +15,7 @@ hamming_dist:
   xor %rax, %rax
   xor %rcx, %rcx
 
-.loop:
+.hamming_dist.loop:
   movdqu (%rdi, %rax), %xmm1  # 16 chars from str1
   movdqu (%rsi, %rax), %xmm2  # 16 chars from str2
 
@@ -26,7 +26,7 @@ hamming_dist:
   add %rcx, %rax
 
   popf
-  jnz .loop
+  jnz .hamming_dist.loop
 
   pop %rbp
   ret
