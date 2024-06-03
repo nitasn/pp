@@ -19,7 +19,7 @@ hamming_dist:
   movdqu (%rdi, %rax), %xmm1  # 16 chars from str1
 
   # 00 10 01 00 Unsigned Chars, Equal Each, Negative Polarity
-  pcmpistrm $0b00100100, %xmm1, (%rsi, %rax)
+  pcmpistrm $0b00100100, (%rsi, %rax), %xmm1
 
   pushf
 
