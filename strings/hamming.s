@@ -20,7 +20,7 @@ hamming_dist:
 
 .loop:
   add %rax, %rcx
-  pcmpistri $0b00010100, (%rdi,%rax), %xmm1
+  pcmpistri $0b00101000, (%rdi,%rax), %xmm1
   jnz .loop
 
   add %rax, %rcx
