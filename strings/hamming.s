@@ -44,14 +44,11 @@ hamming_dist:
   cmovg %r9d, %r10d
   # now %r10d holds the minimum of the two chunks' lengths
 
-  push %rax
   mov %r10d, %ecx
-  mov $1, %rax
-  shl %cl, %rax
-  dec %rax
-  mov %eax, %r11d
-  pop %rax
-  # now %r11d is a mask of %r10d lsb bits (e.g. if %r10d == 5, then 0b11111)
+  mov $1, %r11
+  shl %cl, %r11
+  dec %r11
+  # now %r11 is a mask of %r10d lsb bits (e.g. if %r10d == 5, then 0b11111)
 
   andl %r11d, %edx
   # now %edx holds comparison mask, without trailing junk!!
