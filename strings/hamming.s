@@ -9,12 +9,12 @@ EOS_mask:
 
 .globl hamming_dist
 
-; hamming_dist:
-;   call tirgul_strlen
-; 	ret
+# hamming_dist:
+#   call tirgul_strlen
+# 	ret
 
 
-; tirgul_strlen:
+# tirgul_strlen:
 
 hamming_dist:
   push %rbp
