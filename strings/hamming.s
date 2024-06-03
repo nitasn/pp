@@ -59,7 +59,7 @@ hamming_dist:
   andl %r11d, %edx
   # now %edx holds comparison mask, without trailing junk!!
 
-  popcnt %eax, %eax
+  popcnt %edx, %edx
 
   pushf
 
