@@ -48,11 +48,11 @@ hamming_dist:
   push %rax
   push %rcx
 
-  mov %r10d, %rcx
+  mov %r10d, %ecx
   mov $1, %rax
   shl %cl, %rax
   dec %rax
-  mov %rax, %r11d
+  mov %eax, %r11d
 
   pop %rcx
   pop %rax
