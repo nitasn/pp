@@ -45,11 +45,14 @@ hamming_dist:
   cmovg %r9d, %r10d
   # now %r10d holds the minimum of the two chunks' lengths
 
+  push %rcx
   movl $1, %r8d
   movl %r10d, %r9d
   decl %r9d
-  shl %r9b, %r8d
+  movb %r9b, %cl
+  shl %cl, %r8d
   subl $1, %r8d
+  pop %rcx
 
   andl %r8d, %edx
 
