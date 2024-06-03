@@ -5,7 +5,10 @@
 #define arraySize(x) (sizeof(x) / sizeof(x[0]))
 
 int main(void) {
-    hamming_dist("0123456789012345678901234567890", "0123456789012345678901234567890");
+
+    char str1[] = "0123456789012345678901234567890";
+    char str2[] = "0123456789012345678901234567890";
+    hamming_dist(str1, str2);
 }
 
 int notmain(void) {
