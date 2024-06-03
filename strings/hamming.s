@@ -58,16 +58,10 @@ hamming_dist:
 
   mov %edx, %edx  # zero-extend %edx to %rdx
 
-  add %rdx, %rax  # add to number of matching chars to count
+  add %rdx, %rax  # add the result (number of matching chars) to the count
 
-  pushf
-
-  movmskps %xmm0, %ecx  # move the mask bits to a general-purpose register
-  popcnt %rcx, %rcx # count 1's
-  add %rcx, %rax
-
-  popf
-  jnz .hamming_dist_loop
+  cmp $16, %r10d  # if "smaller" chunk length is 16, both have more chars...
+  je .hamming_dist_loop
 
   pop %rbp
   ret
